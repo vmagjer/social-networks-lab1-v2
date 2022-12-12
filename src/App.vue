@@ -4,16 +4,16 @@ import { onBeforeMount, onMounted, onUpdated, ref } from 'vue'
 import axios from 'axios'
 import { auth, renderSignInUI, selectSong, getSelectedSongs } from './firebase.js'
 
-const user = ref(null)
+const user = ref({})
 onMounted(() => {
   console.log('App mounted')
   renderSignInUI()  
 })
 
 onBeforeMount(() => {
-  auth.onAuthStateChanged((user) => {
+  auth.onAuthStateChanged((x) => {
     console.log('Auth state changed')
-    user.value = user
+    user.value = x
   })
 })
 
@@ -97,10 +97,10 @@ const refreshSelectedSongs = async () => {
   <div>
     <section>
       <h2>Account 😐</h2>
-      <img v-if="user" :src="user.photoURL" alt="cover art" 
+      <img :src="user?.photoURL" alt="cover art" 
             style="width:75px;height:75px;border-radius:50%;border:4px solid #333"/>
-      <p v-if="user">User ID: {{ user.uid }}</p>
-      <p v-if="user">Name: {{ user.displayName }}</p>
+      <p >User ID: {{ user?.uid }}</p>
+      <p >Name: {{ user?.displayName }}</p>
       <div id="firebaseui-auth-container"></div>
       <button v-if="auth.currentUser" @click="auth.signOut()">Sign out</button>
     </section>
