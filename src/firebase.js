@@ -57,13 +57,17 @@ var uiConfig = {
   privacyPolicyUrl: 'https://social-networks-lab-1-20f1c.web.app/',
 }
 // Initialize the FirebaseUI Widget using Firebase.
-var ui = new firebaseui.auth.AuthUI(auth)
+// var ui = new firebaseui.auth.AuthUI(auth)
 
 export function renderSignInUI() {
-  if (!ui.isPendingRedirect()) {
+  let ui = firebaseui.auth.AuthUI.getInstance();
+  if (!ui) {
+      ui = new firebaseui.auth.AuthUI(firebase.auth());
+  }
+  // if (!ui.isPendingRedirect()) {
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig)
-  }
+  // }
 }
 
 // signed in user has selected this song under these weather conditions
