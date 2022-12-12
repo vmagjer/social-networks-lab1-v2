@@ -62,7 +62,7 @@ var uiConfig = {
 export function renderSignInUI() {
   let ui = firebaseui.auth.AuthUI.getInstance();
   if (!ui) {
-      ui = new firebaseui.auth.AuthUI(firebase.auth());
+      ui = new firebaseui.auth.AuthUI(auth);
   }
   // if (!ui.isPendingRedirect()) {
     // The start method will wait until the DOM is loaded.
